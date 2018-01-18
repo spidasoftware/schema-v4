@@ -1,0 +1,27 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'groovy'
+
+group = 'com.spidasoftware'
+version = '0.1-SNAPSHOT'
+
+description = "Schema-v4"
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'resources'
+        }
+    }
+}
+
+uploadArchives {
+	repositories.mavenDeployer {
+		repository(url: System.getenv("ARTIFACTORY_URL_EXPOSED")) {
+			authentication(userName: System.getenv("ARTIFACTORY_USERNAME"), password: System.getenv("ARTIFACTORY_PASSWORD"))
+		}
+	}
+}
